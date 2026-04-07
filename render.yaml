@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: news-project
+    plan: free
+    runtime: python-3.14
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd project && gunicorn project.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: 'False'
+      - key: PYTHONUNBUFFERED
+        value: '1'
