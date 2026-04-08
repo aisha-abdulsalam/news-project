@@ -4,6 +4,9 @@ from django.contrib.auth import get_user_model #get_user_model() ensures we use 
 from django.contrib.auth.password_validation import validate_password # validate_password is a built-in function provided by Django that checks if a given password meets the defined password validation criteria. It raises a ValidationError if the password does not meet the requirements, such as minimum length, complexity, or common password checks. By using validate_password in your serializer, you can ensure that the passwords provided by users during registration or password change meet the security standards defined in your Django settings.
 from .models import Bookmark
 
+# CUSTOM LOGIN SERIALIZER FOR JWT
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
@@ -104,9 +107,6 @@ class CommentSerializer(serializers.ModelSerializer):
 #Example:
 #Registration → ModelSerializer (creates User)
 #Change Password → Serializer (not creating User)
-
-# CUSTOM LOGIN SERIALIZER FOR JWT
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
