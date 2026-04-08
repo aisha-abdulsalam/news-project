@@ -3,8 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from .serializers import ChangePasswordSerializer, RegisterSerializer #, ChangePasswordSerializer, PasswordResetSerializer, PasswordResetConfirmSerializer
+from .serializers import ChangePasswordSerializer, RegisterSerializer, CustomTokenObtainPairSerializer #, ChangePasswordSerializer, PasswordResetSerializer, PasswordResetConfirmSerializer
 from rest_framework_simplejwt.tokens import RefreshToken #helps you turn refresh token string into object so you can: blacklist it, check it, ispect it. without it django won't understand or be able to manipulate(blacklist) it.
+from rest_framework_simplejwt.views import TokenObtainPairView
 #from level 2
 from django.contrib.auth  import get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator, default_token_generator
@@ -73,6 +74,16 @@ class RegisterView(APIView):
             serializer.errors, 
             status=status.HTTP_400_BAD_REQUEST
         ) #If there are validation errors, a response containing the errors and a 400 Bad Request status code is returned to indicate that the registration failed due to invalid input data.
+
+#CUSTOM LOGIN VIEW
+class CustomLoginView(TokenObtainPairView):
+    """
+    Custom login view that uses the CustomTokenObtainPairSerializer.
+    This ensures JWT token generation works properly with the custom User model.
+    Accepts POST requests with 'username' and 'password' fields.
+    Returns access and refresh tokens.
+    """
+    serializer_class = CustomTokenObtainPairSerializer
 
 #no need for login view (thanks to jtw) so we move on to logout
 class LogoutView(APIView):

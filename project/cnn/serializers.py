@@ -105,6 +105,25 @@ class CommentSerializer(serializers.ModelSerializer):
 #Registration → ModelSerializer (creates User)
 #Change Password → Serializer (not creating User)
 
+# CUSTOM LOGIN SERIALIZER FOR JWT
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Custom serializer for obtaining JWT tokens compatible with custom User model.
+    Allows login using either username or email.
+    """
+    username_field = User.USERNAME_FIELD  # This uses 'username' from the custom User model
+    
+    @classmethod
+    def get_token(cls, user):
+        """Generate JWT token for the user"""
+        token = super().get_token(user)
+        # Add custom claims if needed
+        token['username'] = user.username
+        token['email'] = user.email
+        token['role'] = user.role
+        return token
 
 
 
