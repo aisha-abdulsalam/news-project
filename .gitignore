@@ -1,53 +1,35 @@
-# Virtual Environment
+# Environment variables
+.env
+
+# Virtual environment
 myenv/
 venv/
 env/
-ENV/
 
-# Python
+# Python cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
 # Django
-*.log
-local_settings.py
 db.sqlite3
 db.sqlite3-journal
-/media
-/static
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
-
-# Environment variables
-.env
-.env.local
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Static files (if collected)
+staticfiles/
+
+# Media files (if uploaded)
+media/
