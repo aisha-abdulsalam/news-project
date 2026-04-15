@@ -73,7 +73,28 @@ class RegisterView(APIView):
         return Response(
             serializer.errors, 
             status=status.HTTP_400_BAD_REQUEST
-        ) #If there are validation errors, a response containing the errors and a 400 Bad Request status code is returned to indicate that the registration failed due to invalid input data.
+        ) #If there are validation errors, a response containing the errors and a 400 Bad Request status code is returned to indicate that the registration failed due to invalid
+
+#from django.contrib.auth import authenticate
+#class LoginView(APIView):
+#    def post(self, request):
+#        user = authenticate(
+#            username=request.data.get("username"),
+#            password=request.data.get("password")
+#        )
+#        if user is None:
+#            return Response({"error": "Invalid credentials"}, status=401)
+
+#        refresh = RefreshToken.for_user(user)
+
+#        return Response({
+#            "refresh": str(refresh),
+#            "access": str(refresh.access_token)
+#        })
+
+
+
+
 
 #CUSTOM LOGIN VIEW
 class CustomLoginView(TokenObtainPairView):

@@ -81,6 +81,7 @@ class BookmarkSerializer(serializers.ModelSerializer):
 
 
 from .models import Post, Comment
+from django.contrib.auth import authenticate
 
 class PostSerializer(serializers.ModelSerializer):
     #
@@ -107,6 +108,7 @@ class CommentSerializer(serializers.ModelSerializer):
 #Example:
 #Registration → ModelSerializer (creates User)
 #Change Password → Serializer (not creating User)
+
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
