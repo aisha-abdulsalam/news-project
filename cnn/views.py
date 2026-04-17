@@ -64,12 +64,22 @@ class RegisterView(APIView):
         # 4. Run validate_password() for strength
         # 5. Collect errors if any
         if serializer.is_valid():  #is_valid() method is called to validate the incoming data against the rules defined in the RegisterSerializer. If the data is valid, it will return True, and the code inside the if block will be executed. If the data is not valid, it will return False, and the code inside the else block will be executed.
-            # serializer.save() triggers:
+            # user = serializer.save() triggers:
             # → the create() method inside serializer
             # → which calls User.objects.create_user()
             # → which hashes the password properly
-            serializer.save() #save() method is called to create a new user instance based on the validated data. This method will typically call the create() method defined in the RegisterSerializer, which handles the actual creation of the user, including hashing the password and saving the user to the database.
-            return Response({"message": "Registration successful"}, status=status.HTTP_201_CREATED) #If the user is successfully created, a response with a success message and a 201 Created status code is returned to indicate that the registration was successful.
+            user = serializer.save() #save() method is called to create a new user instance based on the validated data. This method will typically call the create() method defined in the RegisterSerializer, which handles the actual creation of the user, including hashing the password and saving the user to the database.
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                "message" : "User Registered successfully",
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "user": {
+                    "username": user.username,
+                    "email": user.email,
+                    "role": user.role
+                }
+            }, status=status.HTTP_201_CREATED) #If the user is successfully created, a response with a success message and a 201 Created status code is returned to indicate that the registration was successful.
            
         return Response(
             serializer.errors, 
