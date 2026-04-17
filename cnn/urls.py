@@ -83,8 +83,7 @@ urlpatterns = [
     
     #
     path('promote/<int:user_id>/', PromoteUserView.as_view()),
-
-    
+  
 ] 
 
 #Django Admin Panel (how to use it) on chatGPT

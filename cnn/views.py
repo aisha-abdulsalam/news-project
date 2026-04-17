@@ -32,9 +32,10 @@ from django_filters.rest_framework import DjangoFilterBackend #used in PostListV
 from rest_framework.filters import SearchFilter
 
 from django.contrib.auth.tokens import default_token_generator
+from django.http import HttpResponse
 
-#def home(request):
- #   return HttpResponse("<h1>Welcome to CNN!</h1>")
+def home(request):
+    return HttpResponse("<h1>Welcome to CNN!</h1>")
 
  #goal: Accept POST request, Validate serializer, Create user, Return success response
 
@@ -74,24 +75,6 @@ class RegisterView(APIView):
             serializer.errors, 
             status=status.HTTP_400_BAD_REQUEST
         ) #If there are validation errors, a response containing the errors and a 400 Bad Request status code is returned to indicate that the registration failed due to invalid
-
-#from django.contrib.auth import authenticate
-#class LoginView(APIView):
-#    def post(self, request):
-#        user = authenticate(
-#            username=request.data.get("username"),
-#            password=request.data.get("password")
-#        )
-#        if user is None:
-#            return Response({"error": "Invalid credentials"}, status=401)
-
-#        refresh = RefreshToken.for_user(user)
-
-#        return Response({
-#            "refresh": str(refresh),
-#            "access": str(refresh.access_token)
-#        })
-
 
 
 

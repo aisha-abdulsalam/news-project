@@ -21,11 +21,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from cnn.views import home
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-
+    path('', home),
     # Send all API requests to the cnn app
     path('api/', include('cnn.urls')),
 
